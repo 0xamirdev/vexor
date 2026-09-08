@@ -9,3 +9,4 @@
 # local reports
 *.json
 *.log
+build/
