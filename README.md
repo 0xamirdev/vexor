@@ -94,19 +94,62 @@ python3 tests/acceptance.py
 
 ## Installation
 
-**Requirements:** Go 1.24 or newer.
+**Requirements:** Go 1.24 or newer. VEXOR installs as a real system CLI — once installed, `vexor` works from **any directory**.
 
-```bash
-git clone https://github.com/0xamirdev/vexor.git
-cd vexor
-go build -o vexor ./cmd/vexor
-```
-
-Or install directly to your `GOPATH`:
+### One-line install (recommended)
 
 ```bash
 go install github.com/0xamirdev/vexor/cmd/vexor@latest
 ```
+
+Then make sure `~/go/bin` is on your `PATH`:
+
+```bash
+export PATH="$PATH:$(go env GOPATH)/bin"   # add to ~/.bashrc or ~/.zshrc to persist
+vexor --version                            # works from anywhere
+```
+
+### Scripted install (Linux / Termux / Debian)
+
+The installer detects your platform, installs Go if missing (apt / pkg), runs `go install`, fixes your `PATH`, and verifies the binary:
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/0xamirdev/vexor/main/scripts/install.sh)"
+```
+
+**Termux:**
+
+```bash
+pkg install -y golang git
+git clone https://github.com/0xamirdev/vexor.git && cd vexor
+./scripts/install.sh
+```
+
+**Debian / Ubuntu:**
+
+```bash
+sudo apt install -y golang-go git
+git clone https://github.com/0xamirdev/vexor.git && cd vexor
+sudo make install   # go install into GOPATH, or: sudo cp ./vexor /usr/local/bin/
+```
+
+### Developers (inside the repository)
+
+```bash
+git clone https://github.com/0xamirdev/vexor.git
+cd vexor
+go build -o vexor ./cmd/vexor   # local binary: ./vexor
+make install                    # or install it system-wide
+```
+
+### Verify
+
+```bash
+cd /tmp
+vexor --version                 # VEXOR 1.1.1
+```
+
+VEXOR checks GitHub Releases at startup (3-second budget, fully silent offline) and warns when a newer version exists — without ever blocking or interrupting a scan.
 
 ## Quick Start
 

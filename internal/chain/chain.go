@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strings"
 
-	"vexor/internal/detect"
+	"github.com/0xamirdev/vexor/internal/detect"
 )
 
 // Engine runs chain rules over a finding set.

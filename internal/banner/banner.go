@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"vexor/internal/version"
+	"github.com/0xamirdev/vexor/internal/version"
 )
 
 const (

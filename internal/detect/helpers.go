@@ -5,7 +5,7 @@ import (
 	"hash/fnv"
 	"net/url"
 
-	"vexor/internal/httpc"
+	"github.com/0xamirdev/vexor/internal/httpc"
 )
 
 // fnvNew32a wraps fnv hashing with a constructor that never fails.

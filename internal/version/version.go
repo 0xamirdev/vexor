@@ -4,7 +4,7 @@
 package version
 
 // Version is the current VEXOR release version.
-const Version = "1.1.0"
+const Version = "1.1.1"
 
 // UserAgent returns the tool identifier embedded in scan requests.
 func UserAgent() string {

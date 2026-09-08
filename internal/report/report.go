@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"vexor/internal/banner"
-	"vexor/internal/detect"
+	"github.com/0xamirdev/vexor/internal/banner"
+	"github.com/0xamirdev/vexor/internal/detect"
 )
 
 // Finding aliases the shared type for callers.

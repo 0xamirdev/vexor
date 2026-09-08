@@ -11,9 +11,10 @@ import (
 	"syscall"
 	"time"
 
-	"vexor/internal/banner"
-	"vexor/internal/engine"
-	"vexor/internal/version"
+	"github.com/0xamirdev/vexor/internal/banner"
+	"github.com/0xamirdev/vexor/internal/engine"
+	"github.com/0xamirdev/vexor/internal/update"
+	"github.com/0xamirdev/vexor/internal/version"
 )
 
 func main() {
@@ -32,6 +33,13 @@ func main() {
 		fmt.Printf("VEXOR %s\n", version.Version)
 		return
 	}
+	// Non-blocking release check: 3s budget, buffered channel, silent on
+	// any failure. The warning prints after the run so nothing is delayed.
+	latest := make(chan string, 1)
+	checkCtx, cancelCheck := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancelCheck()
+	go update.Check(checkCtx, version.Version, latest)
+
 	banner.Print()
 	if *showBanner {
 		return
@@ -57,6 +65,7 @@ func main() {
 	rep, err := engine.Run(ctx, cfg)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, " "+banner.Fail+" %v\n", err)
+		printUpdateNotice(latest)
 		os.Exit(1)
 	}
 	rep.PrintSummary()
@@ -72,10 +81,30 @@ func main() {
 	} else {
 		fmt.Printf(" %sPoC script  : %s%s\n", banner.OK, pocPath, "\033[0m")
 	}
+	printUpdateNotice(latest)
 	if len(rep.Findings) > 0 {
 		os.Exit(1) // findings present: nonzero exit for CI pipelines
 	}
 }
+
+// printUpdateNotice drains the release-check channel and prints the update
+// warning when a newer version exists. Never blocks: empty channel prints
+// nothing.
+func printUpdateNotice(latest <-chan string) {
+	select {
+	case v := <-latest:
+		banner.Divider()
+		fmt.Printf(" %s%s  a newer VEXOR version is available: %s%s\n", banner.Warn, yellowCode(), v, resetCode())
+		fmt.Printf("    current version: v%s\n", version.Version)
+		fmt.Printf("    please update:   %sgo install github.com/0xamirdev/vexor/cmd/vexor@latest%s\n\n", dimCode(), resetCode())
+	default:
+	}
+}
+
+// ANSI codes kept local so the notice stays self-contained.
+func yellowCode() string { return "\033[33m" }
+func dimCode() string    { return "\033[2m" }
+func resetCode() string  { return "\033[0m" }
 
 // parseHeaders converts "Name: value, Name2: value2" into a map.
 func parseHeaders(raw string) map[string]string {

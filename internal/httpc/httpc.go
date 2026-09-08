@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"vexor/internal/version"
+	"github.com/0xamirdev/vexor/internal/version"
 )
 
 // maxBodyBytes caps how much of a response body is read (3 MiB).

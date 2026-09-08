@@ -4,6 +4,32 @@ All notable changes to VEXOR are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com) and versions follow
 [SemVer](https://semver.org).
 
+## [1.1.1] - 2026-09-08
+
+### Fixed — VEXOR is now a proper system CLI
+
+- Renamed the Go module to `github.com/0xamirdev/vexor`, which makes the
+  standard installation path work:
+  `go install github.com/0xamirdev/vexor/cmd/vexor@latest`.
+- The binary now runs identically from any working directory — no repo,
+  no relative resources, no `./vexor` requirement. `cd /tmp && vexor
+  --version` is the contract.
+- Added `Makefile` (`make install`) and a cross-platform installer
+  (`scripts/install.sh`) that detects Linux / Termux / Debian, installs Go
+  when missing, fixes the user's PATH, and verifies the result.
+- Added a non-blocking release check: at startup VEXOR queries the latest
+  GitHub release with a 3-second budget and prints a warning when a newer
+  version exists. Offline or rate-limited networks fail silently — scans
+  are never delayed or interrupted.
+
+### Added
+
+- `internal/update` package: buffered-channel check wired into the CLI
+  flow; the notice prints after a run (or an aborted run) completes.
+- Acceptance coverage: the suite now verifies `--version` from a foreign
+  cwd and a real `go install` into an isolated `GOBIN`, executed from
+  `/tmp`.
+
 ## [1.1.0] - 2026-09-08
 
 ### Fixed — severity is earned by verified impact, not pattern matches

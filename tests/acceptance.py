@@ -90,6 +90,23 @@ def main():
     check("--version prints VEXOR <semver>", bool(re.match(r"^VEXOR \d+\.\d+\.\d+$", ver.stdout.strip())),
           repr(ver.stdout))
 
+    # CLI contract: the binary must behave identically from ANY working
+    # directory (no repo-relative resources). Run from /tmp explicitly.
+    foreign = tempfile.mkdtemp(prefix="vexor-cwd-")
+    ver2 = subprocess.run([BIN, "--version"], capture_output=True, text=True, cwd=foreign)
+    check("--version works from a foreign cwd", ver2.returncode == 0 and ver2.stdout.strip() == ver.stdout.strip(),
+          repr(ver2.stdout))
+
+    # go install path: install into an isolated GOBIN and execute from /tmp.
+    gobin = tempfile.mkdtemp(prefix="vexor-gobin-")
+    inst = subprocess.run(["go", "install", "./cmd/vexor"], cwd=ROOT,
+                          env={**os.environ, "GOBIN": gobin}, capture_output=True, text=True)
+    check("go install ./cmd/vexor succeeds", inst.returncode == 0, inst.stderr)
+    installed = os.path.join(gobin, "vexor")
+    if os.path.exists(installed):
+        ver3 = subprocess.run([installed, "--version"], capture_output=True, text=True, cwd="/tmp")
+        check("installed binary runs from /tmp", ver3.returncode == 0 and "VEXOR" in ver3.stdout, repr(ver3.stdout))
+
     print("[3/5] starting vulnserver")
     server = start_server()
     try:
@@ -144,7 +161,7 @@ def main():
         check("chained findings produced", report.get("chained_findings", 0) >= 1)
 
         # Report metadata contract.
-        check("JSON report carries tool_version", report.get("tool_version") == "1.1.0",
+        check("JSON report carries tool_version", report.get("tool_version") == "1.1.1",
               str(report.get("tool_version")))
 
         print("[5/5] done")

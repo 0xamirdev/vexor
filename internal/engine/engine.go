@@ -10,14 +10,14 @@ import (
 	"sync"
 	"time"
 
-	"vexor/internal/banner"
-	"vexor/internal/chain"
-	"vexor/internal/crawler"
-	"vexor/internal/detect"
-	"vexor/internal/exploit"
-	"vexor/internal/httpc"
-	"vexor/internal/report"
-	"vexor/internal/version"
+	"github.com/0xamirdev/vexor/internal/banner"
+	"github.com/0xamirdev/vexor/internal/chain"
+	"github.com/0xamirdev/vexor/internal/crawler"
+	"github.com/0xamirdev/vexor/internal/detect"
+	"github.com/0xamirdev/vexor/internal/exploit"
+	"github.com/0xamirdev/vexor/internal/httpc"
+	"github.com/0xamirdev/vexor/internal/report"
+	"github.com/0xamirdev/vexor/internal/version"
 )
 
 // Config controls a full VEXOR run.

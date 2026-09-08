@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"strings"
 
-	"vexor/internal/httpc"
+	"github.com/0xamirdev/vexor/internal/httpc"
 )
 
 // Resp aliases the shared HTTP response type for probe modules.

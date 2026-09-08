@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"vexor/internal/httpc"
+	"github.com/0xamirdev/vexor/internal/httpc"
 )
 
 // Form models one HTML <form> discovered on a page.
