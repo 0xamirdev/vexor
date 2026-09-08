@@ -1,0 +1,5 @@
+vexor
+vexor-race
+vexor-out/
+*.json
+*.sh
