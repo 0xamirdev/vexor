@@ -118,7 +118,7 @@ def main():
         endpoints = [f.get("endpoint", "") for f in findings]
 
         # 1. Client-side SDK token: zero findings.
-        token_hits = [f for f in findings if "VgcYWjYJ2Dr3rXh5roFWcFwF" in json.dumps(f)]
+        token_hits = [f for f in findings if "vxPubTok9q2ZxKc4MnR7sDw3" in json.dumps(f)]
         check("websiteToken produces zero findings", not token_hits,
               f"found {len(token_hits)}: {[f['title'] for f in token_hits]}")
         publishable_hits = [f for f in findings if "pk_test" in json.dumps(f)]

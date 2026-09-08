@@ -22,7 +22,7 @@ func main() {
 		}
 		w.Header().Add("Set-Cookie", "session=abc123; Path=/")
 		fmt.Fprint(w, `<!doctype html><html><head><title>App</title>
-		<script>gapifySDK.run({ websiteToken: 'VgcYWjYJ2Dr3rXh5roFWcFwF', baseUrl: 'https://api.gapify.local' });</script>
+		<script>gapifySDK.run({ websiteToken: 'vxPubTok9q2ZxKc4MnR7sDw3', baseUrl: 'https://api.gapify.local' });</script>
 		</head><body>
 		<h1>Test App</h1>
 		<a href="/login">Login</a>
@@ -36,10 +36,10 @@ func main() {
 		</body></html>`)
 	})
 
-	// Login page carrying the same public websiteToken (tlyn scenario).
+	// Login page carrying the same public websiteToken (real-world regression scenario).
 	mux.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, `<!doctype html><html><head><title>Login</title>
-		<script>gapifySDK.run({ websiteToken: 'VgcYWjYJ2Dr3rXh5roFWcFwF', baseUrl: 'https://api.gapify.local' });</script>
+		<script>gapifySDK.run({ websiteToken: 'vxPubTok9q2ZxKc4MnR7sDw3', baseUrl: 'https://api.gapify.local' });</script>
 		</head><body><form method="post">
 		<input type="text" name="user"><input type="password" name="pass">
 		</form></body></html>`)
