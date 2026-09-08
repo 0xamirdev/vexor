@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support VEXOR — Donate</title>
+<meta name="description" content="Support the development of VEXOR, an open-source autonomous web exploit-chain discovery engine. Donate on any EVM network.">
+<style>
+  :root {
+    --bg-0: #06080f;
+    --bg-1: #0b1020;
+    --card: rgba(20, 27, 46, 0.55);
+    --card-border: rgba(90, 200, 250, 0.22);
+    --accent-1: #00d2be;
+    --accent-2: #a855f7;
+    --accent-3: #3b82f6;
+    --text: #e8eef7;
+    --muted: #8b98ad;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: radial-gradient(ellipse 120% 90% at 50% -10%, var(--bg-1) 0%, var(--bg-0) 60%);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  #stars { position: fixed; inset: 0; z-index: 0; }
+  .aurora {
+    position: fixed; z-index: 0; filter: blur(90px); opacity: .35; border-radius: 50%;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .aurora.a { width: 46vmax; height: 46vmax; left: -14vmax; top: -18vmax;
+    background: radial-gradient(circle, rgba(0,210,190,.5), transparent 65%); }
+  .aurora.b { width: 40vmax; height: 40vmax; right: -12vmax; bottom: -14vmax;
+    background: radial-gradient(circle, rgba(168,85,247,.45), transparent 65%);
+    animation-delay: -9s; }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(6vmax, 4vmax, 0) scale(1.15); }
+  }
+
+  main {
+    position: relative; z-index: 2;
+    max-width: 1060px; margin: 0 auto;
+    padding: clamp(24px, 5vw, 72px) clamp(16px, 4vw, 40px) 64px;
+  }
+
+  header { text-align: center; margin-bottom: clamp(32px, 6vw, 64px); }
+  .eyebrow {
+    display: inline-block; font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--accent-1); border: 1px solid rgba(0,210,190,.35);
+    padding: 8px 18px; border-radius: 999px; background: rgba(0,210,190,.06);
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(34px, 6.5vw, 62px); font-weight: 800; line-height: 1.08;
+    background: linear-gradient(92deg, #fff 10%, var(--accent-1) 45%, var(--accent-2) 90%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .lede {
+    max-width: 640px; margin: 18px auto 0; color: var(--muted);
+    font-size: clamp(15px, 2.2vw, 18px); line-height: 1.65;
+  }
+
+  /* ---- 3D Ethereum coin ---- */
+  .stage {
+    height: clamp(190px, 30vw, 280px);
+    display: flex; align-items: center; justify-content: center;
+    perspective: 900px; margin: 8px 0 6px;
+  }
+  .coin {
+    position: relative; width: clamp(120px, 20vw, 170px); aspect-ratio: 1;
+    transform-style: preserve-3d;
+    animation: spin 9s linear infinite, float 5s ease-in-out infinite;
+  }
+  @keyframes spin { from { transform: rotateX(-14deg) rotateY(0deg); }
+                    to   { transform: rotateX(-14deg) rotateY(360deg); } }
+  @keyframes float { 0%, 100% { translate: 0 -8px; } 50% { translate: 0 8px; } }
+  .face, .edge {
+    position: absolute; inset: 0; border-radius: 50%;
+    display: grid; place-items: center;
+  }
+  .face { background: conic-gradient(from 210deg, #16233d, #0d1526 40%, #1b2c4f 75%, #16233d);
+          border: 1.5px solid rgba(120,170,255,.35); box-shadow: 0 0 44px rgba(59,130,246,.35); }
+  .face.back { transform: translateZ(-11px); }
+  .face.front { transform: translateZ(11px); }
+  .edge { width: 100%; height: 100%; }
+  .edge span {
+    position: absolute; left: 50%; top: 0; width: 22px; height: 100%;
+    background: linear-gradient(180deg, #22355c, #101b30);
+    transform-origin: center; transform: translateX(-50%) rotateY(var(--r)) translateZ(calc(clamp(120px, 20vw, 170px) / 2 - 11px));
+  }
+  .eth-glyph { width: 42%; height: 62%; filter: drop-shadow(0 0 14px rgba(0,210,190,.5)); }
+  .coin-shadow {
+    width: 46%; height: 14px; margin: 26px auto 0; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(59,130,246,.45), transparent 70%);
+    animation: shadow 5s ease-in-out infinite;
+  }
+  @keyframes shadow { 0%,100% { transform: scaleX(1); opacity:.7; } 50% { transform: scaleX(.72); opacity:.4; } }
+
+  /* ---- glass card ---- */
+  .grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px; align-items: stretch; margin-top: 26px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 22px;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    padding: clamp(22px, 4vw, 34px);
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(90,200,250,.45); }
+  .card h2 { font-size: clamp(17px, 2.6vw, 21px); font-weight: 700; margin-bottom: 6px; }
+  .card p.sub { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 18px; }
+
+  .wallet-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent-1); margin-bottom: 12px; font-weight: 600;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-1);
+         box-shadow: 0 0 10px var(--accent-1); animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .addr {
+    display: block; width: 100%; text-align: left;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+    font-size: clamp(13px, 2.1vw, 16px); line-height: 1.7; word-break: break-all;
+    background: rgba(6, 10, 22, .75); color: var(--text);
+    border: 1px solid rgba(120,170,255,.25); border-radius: 14px;
+    padding: 16px 18px; cursor: pointer;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .addr:hover { border-color: var(--accent-1); box-shadow: 0 0 0 3px rgba(0,210,190,.12); }
+  .actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .btn {
+    flex: 1 1 150px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 14px 20px; border-radius: 13px; border: 0; cursor: pointer;
+    font-size: 15px; font-weight: 700; text-decoration: none; color: #04101c;
+    background: linear-gradient(93deg, var(--accent-1), #4ade80 55%, var(--accent-3) 130%);
+    background-size: 160% 100%; transition: transform .15s ease, background-position .4s ease;
+  }
+  .btn:hover { transform: translateY(-2px); background-position: 90% 0; }
+  .btn.ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid rgba(120,170,255,.35);
+  }
+  .btn.ghost:hover { border-color: var(--accent-1); color: var(--accent-1); }
+  .copied {
+    margin-top: 14px; font-size: 13.5px; color: var(--accent-1); font-weight: 600;
+    opacity: 0; transform: translateY(4px); transition: all .25s ease; min-height: 18px;
+  }
+  .copied.show { opacity: 1; transform: translateY(0); }
+
+  .chains { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 4px; }
+  .chip {
+    font-size: 12.5px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
+    color: var(--muted); background: rgba(120,170,255,.08);
+    border: 1px solid rgba(120,170,255,.18);
+  }
+  .qr-wrap { display: grid; place-items: center; gap: 14px; }
+  .qr-frame {
+    padding: 14px; border-radius: 18px; background: rgba(6,10,22,.8);
+    border: 1px solid rgba(120,170,255,.25);
+    animation: tilt 6s ease-in-out infinite; transform-style: preserve-3d;
+  }
+  @keyframes tilt { 0%,100% { transform: rotate3d(1,1,0,0deg); }
+                    50% { transform: rotate3d(1,1,0,4deg); } }
+  .qr-frame img { width: clamp(150px, 22vw, 190px); height: auto; border-radius: 8px; display: block; }
+  .qr-note { font-size: 12.5px; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+
+  /* ---- perks ---- */
+  .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
+  @media (max-width: 760px) { .perks { grid-template-columns: 1fr; } }
+  .perk {
+    background: rgba(20,27,46,.4); border: 1px solid rgba(120,170,255,.14);
+    border-radius: 16px; padding: 20px; transition: transform .2s ease, border-color .2s ease;
+  }
+  .perk:hover { transform: translateY(-3px); border-color: rgba(0,210,190,.4); }
+  .perk .ico { font-size: 22px; }
+  .perk h3 { font-size: 15px; margin: 8px 0 5px; }
+  .perk p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  footer {
+    margin-top: 54px; text-align: center; color: var(--muted); font-size: 13px; line-height: 1.8;
+  }
+  footer a { color: var(--accent-1); text-decoration: none; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001s !important; transition-duration: .001s !important; }
+  }
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="aurora a" aria-hidden="true"></div>
+<div class="aurora b" aria-hidden="true"></div>
+
+<main>
+  <header>
+    <span class="eyebrow">Open Source &middot; MIT License</span>
+    <h1>Support VEXOR</h1>
+    <p class="lede">
+      VEXOR is a free, open-source exploit-chain discovery engine built in spare time
+      between security engagements. If it helped you land a bounty or secure a system,
+      funding keeps new probe modules coming.
+    </p>
+  </header>
+
+  <div class="stage" aria-hidden="true">
+    <div class="coin">
+      <div class="edge"></div>
+      <div class="face back"></div>
+      <div class="face front">
+        <svg class="eth-glyph" viewBox="0 0 24 38" fill="none">
+          <path d="M12 0 L22.5 19 L12 25.5 L1.5 19 Z" fill="url(#gA)" opacity=".95"/>
+          <path d="M12 27.5 L22.5 21 L12 38 L1.5 21 Z" fill="url(#gB)" opacity=".95"/>
+          <defs>
+            <linearGradient id="gA" x1="0" y1="0" x2="24" y2="26">
+              <stop stop-color="#00d2be"/><stop offset="1" stop-color="#3b82f6"/>
+            </linearGradient>
+            <linearGradient id="gB" x1="0" y1="20" x2="24" y2="38">
+              <stop stop-color="#a855f7"/><stop offset="1" stop-color="#00d2be"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="coin-shadow" aria-hidden="true"></div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="wallet-label"><span class="dot"></span> EVM Wallet Address</div>
+      <button class="addr" id="addrBtn" title="Click to copy">
+        0x75a727b8eb0e08e5cf184e102aa7f28497127e1b
+      </button>
+      <div class="actions">
+        <button class="btn" id="copyBtn">&#128203; Copy Address</button>
+        <a class="btn ghost" href="https://github.com/0xamirdev/vexor" target="_blank" rel="noopener">
+          &#11088; Star on GitHub
+        </a>
+      </div>
+      <div class="copied" id="copied">Wallet address copied to clipboard.</div>
+    </div>
+
+    <div class="card qr-wrap">
+      <div class="qr-frame"><img src="docs/assets/wallet-qr.png" alt="QR code for the EVM donation wallet address" width="190"></div>
+      <div class="qr-note">Scan with any EVM wallet</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:22px">
+    <h2>Works on every EVM network</h2>
+    <p class="sub">Send ETH or any ERC-20 token on the network of your choice — the address is identical everywhere.</p>
+    <div class="chains">
+      <span class="chip">Ethereum</span><span class="chip">BSC</span><span class="chip">Polygon</span>
+      <span class="chip">Arbitrum</span><span class="chip">Base</span><span class="chip">Optimism</span>
+      <span class="chip">Avalanche C-Chain</span><span class="chip">Any EVM chain</span>
+    </div>
+  </div>
+
+  <div class="perks">
+    <div class="perk"><div class="ico">&#128300;</div><h3>Research</h3><p>New payload research, engine fuzzing, and evasion technique testing for the probe modules.</p></div>
+    <div class="perk"><div class="ico">&#9881;</div><h3>Engineering</h3><p>Better chain rules, out-of-band callbacks, GraphQL and HTTP/2 modules from the public roadmap.</p></div>
+    <div class="perk"><div class="ico">&#9889;</div><h3>Momentum</h3><p>Faster triage of community reports, sharper docs, and more frequent releases.</p></div>
+  </div>
+
+  <footer>
+    By donating you support open-source security research. Donations are voluntary and non-refundable.<br>
+    <a href="https://github.com/0xamirdev/vexor">VEXOR on GitHub</a> &middot;
+    <a href="https://github.com/0xamirdev/vexor#readme">Documentation</a> &middot;
+    Use only against systems you are authorized to test.
+  </footer>
+</main>
+
+<script>
+  const WALLET = "0x75a727b8eb0e08e5cf184e102aa7f28497127e1b";
+
+  function copyWallet() {
+    const done = () => {
+      const el = document.getElementById("copied");
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2600);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(WALLET).then(done).catch(() => fallback());
+    } else { fallback(); }
+    function fallback() {
+      const ta = document.createElement("textarea");
+      ta.value = WALLET; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  }
+  document.getElementById("copyBtn").addEventListener("click", copyWallet);
+  document.getElementById("addrBtn").addEventListener("click", copyWallet);
+
+  // coin edge segments
+  const edge = document.querySelector(".edge");
+  for (let i = 0; i < 22; i++) {
+    const s = document.createElement("span");
+    s.style.setProperty("--r", (i * (360 / 22)) + "deg");
+    edge.appendChild(s);
+  }
+
+  // particle starfield
+  const cv = document.getElementById("stars"), ctx = cv.getContext("2d");
+  let stars = [], w, h;
+  function resize() {
+    w = cv.width = innerWidth; h = cv.height = innerHeight;
+    stars = Array.from({length: Math.min(150, Math.floor(w * h / 9000))}, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      r: Math.random() * 1.4 + .3, s: Math.random() * .28 + .06,
+      c: Math.random() < .18 ? "0,210,190" : (Math.random() < .3 ? "168,85,247" : "200,215,240")
+    }));
+  }
+  addEventListener("resize", resize); resize();
+  (function tick() {
+    ctx.clearRect(0, 0, w, h);
+    for (const st of stars) {
+      st.y -= st.s; if (st.y < -4) { st.y = h + 4; st.x = Math.random() * w; }
+      ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 6.283);
+      ctx.fillStyle = "rgba(" + st.c + ",.8)"; ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  })();
+</script>
+</body>
+</html>

@@ -39,6 +39,10 @@ A reflected XSS plus a session cookie without HttpOnly is not two low findings. 
 └─────────┘   └──────────────┘   └───────────┘   └──────────┘   └────────┘
 ```
 
+<p align="center">
+  <img src="docs/assets/how-it-works.png" alt="VEXOR pipeline: crawl, probe, chain, prove, report" width="100%">
+</p>
+
 ### Discovery Without Assumptions
 
 The crawler never touches a static wordlist. It mines links, forms (GET and POST), query parameters, JSON API keys, and script sources from live responses, then quietly probes well-known sensitive locations. Every URL it touches becomes raw material for the probe stage.
@@ -183,15 +187,19 @@ Contributions are welcome — new probe modules, chain rules, and performance wo
 
 VEXOR is free and open source, built in spare time between engagements. If it helped you land a bounty or secure a system, consider supporting continued development.
 
+<p align="center">
+  <a href="https://0xamirdev.github.io/vexor/donate.html">
+    <img src="https://img.shields.io/badge/%E2%9D%A4_Donate-Support_VEXOR-8A2BE2?style=for-the-badge&logo=ethereum&logoColor=white&labelColor=0b1020" alt="Donate to VEXOR">
+  </a>
+</p>
+
 **EVM / Ethereum wallet:**
 
 ```
 0x75a727b8eb0e08e5cf184e102aa7f28497127e1b
 ```
 
-<p align="center">
-  <img src="docs/assets/donate.png" alt="Support VEXOR" width="420">
-</p>
+The donate button opens an interactive donation page with a scannable wallet QR and one-click address copy — available on every EVM network: Ethereum, BSC, Polygon, Arbitrum, Base, Optimism.
 
 ## License
 
