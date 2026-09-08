@@ -161,7 +161,7 @@ def main():
         check("chained findings produced", report.get("chained_findings", 0) >= 1)
 
         # Report metadata contract.
-        check("JSON report carries tool_version", report.get("tool_version") == "1.1.1",
+        check("JSON report carries tool_version", report.get("tool_version") == "1.1.2",
               str(report.get("tool_version")))
 
         print("[5/5] done")

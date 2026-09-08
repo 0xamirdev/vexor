@@ -4,6 +4,33 @@ All notable changes to VEXOR are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com) and versions follow
 [SemVer](https://semver.org).
 
+## [1.1.2] - 2026-09-08
+
+### Fixed — installation works for EVERY fresh user, not one machine
+
+- **Prebuilt binaries** are now attached to every release
+  (`linux/amd64`, `linux/arm64`, `darwin/amd64`, `darwin/arm64`, static,
+  `-trimpath -ldflags "-s -w"`), so users without a Go toolchain can
+  install with a single download. Added the `Release` workflow that
+  builds and publishes them on every tag.
+- **Installer rewritten** (`scripts/install.sh`): detects OS/arch,
+  downloads the matching prebuilt binary, sanity-runs it before placing
+  it, and falls back to `go install` (installing Go via `apt`/`pkg` when
+  needed). It installs into the first writable bin dir on PATH, else
+  `~/.local/bin` / Termux `usr/bin` — no root required, no absolute
+  machine paths anywhere.
+- **PATH fix hardened**: a fresh user has no `~/.profile`; the installer
+  now creates one and appends the bin dir. The previous version only
+  edited profiles that already existed.
+- **Fixed a silent build bug**: `go build -o NAME` ignores `GOBIN` and
+  dropped the binary in the source directory — the installer now passes
+  an output path.
+- **Clean-environment test** (`tests/install_clean_env.py`): simulates a
+  brand-new user — synthetic HOME, minimal PATH without any Go/VEXOR
+  state, empty profiles — then verifies install, PATH wiring, and
+  `vexor --version` from a foreign cwd. Wired into CI as its own job
+  (`fresh-install`).
+
 ## [1.1.1] - 2026-09-08
 
 ### Fixed — VEXOR is now a proper system CLI
