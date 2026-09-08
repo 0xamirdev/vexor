@@ -1,5 +1,11 @@
-vexor
-vexor-race
-vexor-out/
+# build artifacts (anchored to repo root only)
+/vexor
+/vexor-race
+/vexor-bin
+
+# scan output
+/vexor-out/
+
+# local reports
 *.json
-*.sh
+*.log
