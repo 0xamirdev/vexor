@@ -11,7 +11,7 @@
 VEXOR is a security tool — vulnerabilities in it deserve careful, responsible handling.
 
 1. Do **not** open a public issue for security reports.
-2. Use GitHub's [private vulnerability reporting](https://github.com/0xamirdev/vexor/security/advisories/new) or contact the maintainer directly.
+2. Use GitHub's [private vulnerability reporting](https://github.com/0xamirdev/vexor/security/advisories/new), or email **oxamirdev@gmail.com** with `[SECURITY]` in the subject line.
 3. Include reproduction steps, affected versions, and impact assessment.
 
 Expect an initial response within 72 hours. Credit is given to reporters in the advisory unless anonymity is requested.

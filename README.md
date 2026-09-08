@@ -12,7 +12,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/0xamirdev/vexor?style=for-the-badge&color=yellow)](https://github.com/0xamirdev/vexor/stargazers)
 
-[Report a Bug](../../issues) · [Feature Request](../../issues) · [Security Policy](SECURITY.md)
+[Report a Bug](../../issues) · [Feature Request](../../issues) · [Security Policy](SECURITY.md) · [Contact](mailto:oxamirdev@gmail.com)
 
 </div>
 
@@ -261,6 +261,14 @@ VEXOR is free and open source, built in spare time between engagements. If it he
 ```
 
 The donate button opens an interactive donation page with a scannable wallet QR and one-click address copy — available on every EVM network: Ethereum, BSC, Polygon, Arbitrum, Base, Optimism.
+
+## Contact
+
+Questions, collaboration ideas, or a bounty you want a second opinion on? Reach out:
+
+**Email:** [oxamirdev@gmail.com](mailto:oxamirdev@gmail.com)
+
+For vulnerability reports in VEXOR itself, please follow the [Security Policy](SECURITY.md) instead of emailing publicly.
 
 ## License
 
