@@ -31,14 +31,6 @@ A reflected XSS plus a session cookie without HttpOnly is not two low findings. 
 
 ## How It Works
 
-```
-┌─────────┐   ┌──────────────┐   ┌───────────┐   ┌──────────┐   ┌────────┐
-│  CRAWL  │ → │    PROBE     │ → │   CHAIN   │ → │  PROVE   │ → │ REPORT │
-│ surface │   │ 9 core modules│  │  7 fusion │   │ live PoC │   │ JSON + │
-│ mining  │   │ + payloads   │   │   rules   │   │  checks  │   │ script │
-└─────────┘   └──────────────┘   └───────────┘   └──────────┘   └────────┘
-```
-
 <p align="center">
   <img src="docs/assets/how-it-works.png" alt="VEXOR pipeline: crawl, probe, chain, prove, report" width="100%">
 </p>
