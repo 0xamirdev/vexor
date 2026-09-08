@@ -33,5 +33,8 @@ jobs:
       - name: Formatting check
         run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
 
+      - name: Acceptance suite
+        run: python3 tests/acceptance.py
+
       - name: Smoke test (help output)
         run: go run ./cmd/vexor -banner

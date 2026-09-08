@@ -20,8 +20,9 @@ go build ./...
 
 # Quality gates (all must pass before opening a PR)
 go vet ./...
-gofmt -l .        # must output nothing
+gofmt -l .                        # must output nothing
 go test ./...
+python3 tests/acceptance.py       # black-box reporting contract
 ```
 
 ## Adding a Probe Module

@@ -27,6 +27,7 @@ type Exploit struct {
 
 // Report aggregates one full VEXOR run.
 type Report struct {
+	ToolVersion  string           `json:"tool_version"`
 	Target       string           `json:"target"`
 	StartedAt    time.Time        `json:"started_at"`
 	FinishedAt   time.Time        `json:"finished_at"`

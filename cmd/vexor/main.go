@@ -13,6 +13,7 @@ import (
 
 	"vexor/internal/banner"
 	"vexor/internal/engine"
+	"vexor/internal/version"
 )
 
 func main() {
@@ -24,8 +25,13 @@ func main() {
 	outDir := flag.String("o", "vexor-out", "output directory for reports")
 	rawHeaders := flag.String("H", "", "extra request headers, comma-separated 'Name: value' pairs")
 	showBanner := flag.Bool("banner", false, "print banner and exit")
+	showVersion := flag.Bool("version", false, "print VEXOR version and exit")
 	flag.Parse()
 
+	if *showVersion {
+		fmt.Printf("VEXOR %s\n", version.Version)
+		return
+	}
 	banner.Print()
 	if *showBanner {
 		return

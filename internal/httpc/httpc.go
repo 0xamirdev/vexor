@@ -12,6 +12,8 @@ import (
 	"net/url"
 	"strings"
 	"time"
+
+	"vexor/internal/version"
 )
 
 // maxBodyBytes caps how much of a response body is read (3 MiB).
@@ -62,7 +64,7 @@ func New(timeout time.Duration) *Client {
 		follow:    mk(true),
 		nofollow:  mk(false),
 		Timeout:   timeout,
-		UserAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 VEXOR/1.0 SecurityScanner",
+		UserAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 VEXOR/" + version.Version + " SecurityScanner",
 	}
 }
 

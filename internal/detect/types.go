@@ -27,6 +27,23 @@ const (
 	SeverityCritical Severity = "critical"
 )
 
+// Rank returns the numeric rank of a severity (higher = more severe).
+// Never compare Severity values lexically: "critical" sorts before "high".
+func (s Severity) Rank() int {
+	switch s {
+	case SeverityCritical:
+		return 5
+	case SeverityHigh:
+		return 4
+	case SeverityMedium:
+		return 3
+	case SeverityLow:
+		return 2
+	default:
+		return 1
+	}
+}
+
 // Level selects how often a module runs: once per host, per endpoint or per
 // individual injectable parameter.
 type Level int

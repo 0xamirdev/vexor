@@ -17,6 +17,7 @@ import (
 	"vexor/internal/exploit"
 	"vexor/internal/httpc"
 	"vexor/internal/report"
+	"vexor/internal/version"
 )
 
 // Config controls a full VEXOR run.
@@ -33,7 +34,7 @@ type Config struct {
 // Run executes the full pipeline and returns the final report.
 func Run(ctx context.Context, cfg Config) (*report.Report, error) {
 	client := httpc.New(cfg.Timeout)
-	client.UserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36 VEXOR/1.0"
+	client.UserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36 " + version.UserAgent()
 	base, err := url.Parse(cfg.Target)
 	if err != nil {
 		return nil, fmt.Errorf("invalid target URL: %w", err)
@@ -89,9 +90,12 @@ func Run(ctx context.Context, cfg Config) (*report.Report, error) {
 
 	// Stage 5: report ----------------------------------------------------
 	findings = append(findings, chained...)
+	findings = dedupe(findings)
+	findings = detect.AggregateHeaderFindings(findings)
 	chain.SortFindings(findings)
 	rep.FinishedAt = time.Now()
-	rep.Findings = dedupe(findings)
+	rep.ToolVersion = version.Version
+	rep.Findings = findings
 	fmt.Printf(" %s[5/5]%s scan complete.\n", cyan(), reset())
 	return rep, nil
 }

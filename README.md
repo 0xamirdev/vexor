@@ -7,6 +7,7 @@
 *An autonomous web exploitation engine that discovers real vulnerabilities, chains them into critical attack paths, and proves every finding with reproducible evidence.*
 
 [![Go Version](https://img.shields.io/badge/Go-1.24+-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://golang.org)
+[![Release](https://img.shields.io/github/v/release/0xamirdev/vexor?style=for-the-badge&color=blue)](https://github.com/0xamirdev/vexor/releases)
 [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS-lightgrey?style=for-the-badge)](https://github.com/0xamirdev/vexor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/0xamirdev/vexor?style=for-the-badge&color=yellow)](https://github.com/0xamirdev/vexor/stargazers)
@@ -51,7 +52,7 @@ The crawler never touches a static wordlist. It mines links, forms (GET and POST
 | **SSRF** | Loopback and cloud-metadata fetches with reflection-versus-fetch discrimination to eliminate false positives | Parameter |
 | **Redirect** | Location-header and client-side redirect primitives tested against ten bypass vectors | Parameter |
 | **Misconfig** | CORS origin reflection, missing security headers, exposed directory listings | Endpoint |
-| **Exposure** | Credential patterns (AWS, GitHub, Stripe, JWT, private keys), sensitive file exposure, verbose debug output | Endpoint / Host |
+| **Exposure** | Credential patterns (AWS, GitHub, Stripe, JWT, private keys), sensitive file exposure, verbose debug output — every secret finding passes an impact-verification tier: **verified** (token replayed and accepted), **potential** (pattern matched, impact unproven, capped at medium), or **public-by-design** (client SDK config, informational) | Endpoint / Host |
 
 ### Vulnerability Fusion
 
@@ -70,6 +71,26 @@ This is where VEXOR departs from every conventional scanner. The chain engine lo
 ### Proof, Not Guesses
 
 Every finding ships with the exact payload, a `curl` command that reproduces it, and where applicable a live verification: extracted database version, read host files, echoed shell markers. The PoC replay script generated at the end of each run re-executes every finding automatically — ready to attach to a bug bounty report.
+
+Severity is never assigned on pattern matching alone. A finding either demonstrates impact, or it is explicitly labeled **Potential (unverified)** and capped below high. Client-side SDK tokens (chat-widget `websiteToken`s, publishable keys, site keys) are public by design and are reported as informational noise-avoidance, never as HIGH secrets.
+
+## Verification Tiers
+
+| Tier | Meaning | Severity |
+|---|---|---|
+| **Verified** | VEXOR replayed the token and the server accepted it, or extracted live data | Full severity, replay PoC included |
+| **Potential (unverified)** | Sensitive-looking pattern, impact unproven | Capped at medium, no exploit PoC |
+| **Public by design** | Client-side SDK configuration sent to every visitor | Informational |
+
+This model was built after a real-world false positive: a chat widget's `websiteToken` on a public login page was originally reported as a HIGH "secret leakage". It is now correctly classified as public client-side configuration.
+
+## Acceptance Testing
+
+VEXOR ships a black-box regression suite that boots a deliberately vulnerable server and asserts the reporting contract — including the exact false-positive scenarios above:
+
+```bash
+python3 tests/acceptance.py
+```
 
 ## Installation
 
@@ -108,6 +129,7 @@ vexor -u https://target.example.com -t 16 -H "Cookie: session=your_cookie" -mark
 | `-marker` | Marker domain used in redirect and CORS probes. Point this at a host you control | `vexor.probe.invalid` |
 | `-o` | Output directory for reports | `vexor-out` |
 | `-H` | Extra request headers, comma-separated `Name: value` pairs — use for authenticated scans | — |
+| `--version` | Print the VEXOR version and exit | — |
 
 ### Sample Output
 
@@ -151,7 +173,10 @@ vexor/
 │   ├── chain/          vulnerability fusion engine
 │   ├── exploit/        safe proof-of-concept generation
 │   ├── engine/         pipeline orchestration and worker pool
+│   ├── version/        central release version
 │   └── report/         console, JSON, and PoC-script reports
+├── tests/              acceptance suite (Python) + vulnerable test server
+├── CHANGELOG.md
 └── LICENSE
 ```
 
